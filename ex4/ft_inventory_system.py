@@ -37,11 +37,17 @@ def main() -> None:
         print(f"Item {k} represents {percent}%")
 
     if inventory:
-        max_item = max(inventory, key=inventory.get)
-        min_item = min(inventory, key=inventory.get)
+        max_item = max(inventory, key=lambda k: inventory[k])
+        min_item = min(inventory, key=lambda k: inventory[k])
 
-        print(f"Item most abundant: {max_item} with quantity {inventory[max_item]}")
-        print(f"Item least abundant: {min_item} with quantity {inventory[min_item]}")
+        print(
+            f"Item most abundant: {max_item} "
+            f"with quantity {inventory[max_item]}"
+        )
+        print(
+            f"Item least abundant: {min_item} "
+            f"with quantity {inventory[min_item]}"
+        )
 
     inventory.update({"magic_item": 1})
     print(f"Updated inventory: {inventory}")
