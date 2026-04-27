@@ -1,47 +1,50 @@
 #!/usr/bin/env python3
 
-import random
-
-
-def gen_player_achievements() -> set:
-    achievements = [
-        "Crafting Genius", "World Savior", "Master Explorer",
-        "Collector Supreme", "Untouchable", "Boss Slayer",
-        "Strategist", "Speed Runner", "Survivor",
-        "Treasure Hunter", "First Steps", "Sharp Mind"
-    ]
-
-    count = random.randint(5, len(achievements))
-    return set(random.sample(achievements, count))
+import sys
 
 
 def main() -> None:
-    print("=== Achievement Tracker System ===")
+    print("=== Inventory System Analysis ===")
 
-    players = {
-        "Alice": gen_player_achievements(),
-        "Bob": gen_player_achievements(),
-        "Charlie": gen_player_achievements(),
-        "Dylan": gen_player_achievements(),
-    }
+    inventory = {}
 
-    for name, ach in players.items():
-        print(f"Player {name}: {ach}")
+    for arg in sys.argv[1:]:
+        if ":" not in arg:
+            print(f"Error- invalid parameter '{arg}'")
+            continue
 
-    all_ach: set[str] = set()
-    for ach in players.values():
-        all_ach = all_ach.union(ach)
+        name, qty = arg.split(":", 1)
 
-    common = set.intersection(*players.values())
+        if name in inventory:
+            print(f"Redundant item '{name}'- discarding")
+            continue
 
-    print(f"All distinct achievements: {all_ach}")
-    print(f"Common achievements: {common}")
+        try:
+            inventory[name] = int(qty)
+        except Exception as e:
+            print(f"Quantity error for '{name}': {e}")
 
-    for name, ach in players.items():
-        others = all_ach.difference(ach)
-        only = ach.difference(all_ach - ach)
-        print(f"Only {name} has: {only}")
-        print(f"{name} is missing: {others}")
+    print(f"Got inventory: {inventory}")
+
+    items = list(inventory.keys())
+    print(f"Item list: {items}")
+
+    total = sum(inventory.values())
+    print(f"Total quantity of the {len(items)} items: {total}")
+
+    for k in inventory:
+        percent = round((inventory[k] / total) * 100, 1)
+        print(f"Item {k} represents {percent}%")
+
+    if inventory:
+        max_item = max(inventory, key=inventory.get)
+        min_item = min(inventory, key=inventory.get)
+
+        print(f"Item most abundant: {max_item} with quantity {inventory[max_item]}")
+        print(f"Item least abundant: {min_item} with quantity {inventory[min_item]}")
+
+    inventory.update({"magic_item": 1})
+    print(f"Updated inventory: {inventory}")
 
 
 if __name__ == "__main__":
