@@ -9,8 +9,10 @@ def main() -> None:
     args = sys.argv[1:]
 
     if len(args) == 0:
-        print("No scores provided.")
-        print("Usage: python3 ft_score_analytics.py <score1> <score2> ...")
+        print(
+            "No scores provided."
+            "Usage: python3 ft_score_analytics.py <score1> <score2> ..."
+        )
 
         return
 
@@ -23,8 +25,10 @@ def main() -> None:
             print(f"Invalid parameter: '{arg}'")
 
     if len(scores) == 0:
-        print("No scores provided.")
-        print("Usage: python3 ft_score_analytics.py <score1> <score2> ...")
+        print(
+            "No scores provided."
+            "Usage: python3 ft_score_analytics.py <score1> <score2> ..."
+        )
         return
 
     total_player = len(scores)

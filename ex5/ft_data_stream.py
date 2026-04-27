@@ -4,18 +4,20 @@ import random
 from typing import Generator
 
 
-def gen_event() -> Generator[tuple, None, None]:
+def gen_event() -> Generator[tuple[str, str], None, None]:
     players = ["alice", "bob", "charlie", "dylan"]
     actions = [
-            "run", "eat", "sleep", "grab",
-            "move", "climb", "swim", "release"
-            ]
+        "run", "eat", "sleep", "grab",
+        "move", "climb", "swim", "release"
+    ]
 
     while True:
         yield (random.choice(players), random.choice(actions))
 
 
-def consume_event(events: list) -> Generator[tuple, None, None]:
+def consume_event(
+    events: list[tuple[str, str]]
+) -> Generator[tuple[str, str], None, None]:
     while len(events) > 0:
         i = random.randrange(len(events))
         yield events.pop(i)

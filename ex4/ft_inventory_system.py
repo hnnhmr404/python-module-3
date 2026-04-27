@@ -10,13 +10,13 @@ def main() -> None:
 
     for arg in sys.argv[1:]:
         if ":" not in arg:
-            print(f"Error- invalid parameter '{arg}'")
+            print(f"Error - invalid parameter '{arg}'")
             continue
 
         name, qty = arg.split(":", 1)
 
         if name in inventory:
-            print(f"Redundant item '{name}'- discarding")
+            print(f"Redundant item '{name}' - discarding")
             continue
 
         try:
@@ -32,21 +32,27 @@ def main() -> None:
     total = sum(inventory.values())
     print(f"Total quantity of the {len(items)} items: {total}")
 
-    for k in inventory:
-        percent = round((inventory[k] / total) * 100, 1)
-        print(f"Item {k} represents {percent}%")
+    for item in inventory:
+        percent = round((inventory[item] / total) * 100, 1)
+        print(f"Item {item} represents {percent}%")
 
-    if inventory:
-        max_item = max(inventory, key=lambda k: inventory[k])
-        min_item = min(inventory, key=lambda k: inventory[k])
+    if len(inventory) > 0:
+        most_item = items[0]
+        least_item = items[0]
+
+        for item in inventory:
+            if inventory[item] > inventory[most_item]:
+                most_item = item
+            if inventory[item] < inventory[least_item]:
+                least_item = item
 
         print(
-            f"Item most abundant: {max_item} "
-            f"with quantity {inventory[max_item]}"
+            f"Item most abundant: {most_item} "
+            f"with quantity {inventory[most_item]}"
         )
         print(
-            f"Item least abundant: {min_item} "
-            f"with quantity {inventory[min_item]}"
+            f"Item least abundant: {least_item} "
+            "with quantity {inventory[least_item]}"
         )
 
     inventory.update({"magic_item": 1})

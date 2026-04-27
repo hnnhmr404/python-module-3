@@ -3,7 +3,7 @@
 import random
 
 
-def gen_player_achievements() -> set:
+def gen_player_achievements() -> set[str]:
     achievements = [
         "Crafting Genius", "World Savior", "Master Explorer",
         "Collector Supreme", "Untouchable", "Boss Slayer",
@@ -38,10 +38,16 @@ def main() -> None:
     print(f"Common achievements: {common}")
 
     for name, ach in players.items():
-        others = all_ach.difference(ach)
-        only = ach.difference(all_ach - ach)
+        others: set[str] = set()
+        for other_name, other_ach in players.items():
+            if other_name != name:
+                others = others.union(other_ach)
+
+        only = ach.difference(others)
+        missing = all_ach.difference(ach)
+
         print(f"Only {name} has: {only}")
-        print(f"{name} is missing: {others}")
+        print(f"{name} is missing: {missing}")
 
 
 if __name__ == "__main__":
