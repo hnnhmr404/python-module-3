@@ -45,7 +45,7 @@ def main() -> None:
     )
     print(f"Distance to center: {round(dist_center, 4)}")
 
-    print("Get a second set of coordinates")
+    print("\nGet a second set of coordinates")
     pos2 = get_player_pos()
 
     dist_points = math.sqrt(

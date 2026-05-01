@@ -16,7 +16,7 @@ def gen_player_achievements() -> set[str]:
 
 
 def main() -> None:
-    print("=== Achievement Tracker System ===")
+    print("=== Achievement Tracker System ===\n")
 
     players = {
         "Alice": gen_player_achievements(),
@@ -35,7 +35,7 @@ def main() -> None:
     common = set.intersection(*players.values())
 
     print(f"All distinct achievements: {all_ach}")
-    print(f"Common achievements: {common}")
+    print(f"\nCommon achievements: {common}\n")
 
     for name, ach in players.items():
         others: set[str] = set()
@@ -44,9 +44,12 @@ def main() -> None:
                 others = others.union(other_ach)
 
         only = ach.difference(others)
-        missing = all_ach.difference(ach)
-
         print(f"Only {name} has: {only}")
+
+    print()
+
+    for name, ach in players.items():
+        missing = all_ach.difference(ach)
         print(f"{name} is missing: {missing}")
 
 
